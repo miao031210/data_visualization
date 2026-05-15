@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爆款文章关键词词云</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 30px 20px;
+  }
+  h1 {
+    font-size: 28px;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, #ff6b35, #58a6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle {
+    color: #8b949e;
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+  .cloud-container {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 1100px;
+    width: 100%;
+    text-align: center;
+  }
+  .cloud-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  .legend {
+    display: flex;
+    gap: 24px;
+    margin: 20px 0 16px;
+    font-size: 13px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .legend span { display: flex; align-items: center; gap: 6px; }
+  .dot {
+    width: 12px; height: 12px; border-radius: 3px;
+  }
+  .analysis {
+    max-width: 1100px;
+    width: 100%;
+    margin-top: 28px;
+    padding: 24px 28px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    line-height: 1.8;
+  }
+  .analysis h3 {
+    color: #58a6ff;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  .highlight { color: #ff6b35; font-weight: bold; }
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 4px;
+  }
+  .tag {
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 12px;
+    background: rgba(255,107,53,0.12);
+    color: #ff6b35;
+    border: 1px solid rgba(255,107,53,0.25);
+  }
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .insight-card {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .insight-card .label {
+    font-size: 11px;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .insight-card .value {
+    font-size: 15px;
+    font-weight: bold;
+    color: #e6edf3;
+  }
+  .stats {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 36px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #ff6b35, #ff8c5a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: #8b949e;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #30363d;
+    margin: 20px 0;
+  }
+</style>
+</head>
+<body>
+
+<h1>爆款文章关键词词云</h1>
+<p class="subtitle">基于癌友指南等健康类爆款文章的标题与内容分析</p>
+
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-num">70+</div>
+    <div class="stat-label">提取关键词</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">5</div>
+    <div class="stat-label">核心维度</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">292</div>
+    <div class="stat-label">分析文章数</div>
+  </div>
+</div>
+
+<div class="cloud-container">
+  <img src="wordcloud_output.png" alt="爆款文章关键词词云" />
+  <div class="legend">
+    <span><span class="dot" style="background:#ff6b35"></span> 情绪冲击词 · 高频高权重</span>
+    <span><span class="dot" style="background:#58a6ff"></span> 痛点/模式词 · 中频</span>
+    <span><span class="dot" style="background:#8b949e"></span> 辅助关键词 · 基础频次</span>
+  </div>
+</div>
+
+<div class="analysis">
+  <h3>智能分析：爆款文章最后一段揭示的共性规律</h3>
+  <p>
+    爆款文章的共性规律非常清晰，可归纳为<strong>标题公式、内容策略、发布时机、原创基石</strong>四个维度：
+  </p>
+  <p style="margin-top:10px;">
+    标题采用<span class="highlight">"颠覆常识 + 具体数字 + 利益承诺"</span>公式，
+    大量使用情绪冲击词汇（如"颠覆认知""警惕""快停下"）制造悬念。
+    内容深耕<span class="highlight">"最新研究解读"</span>和<span class="highlight">"颠覆性护理指南"</span>两个高价值领域，
+    直击患者最迫切的痛点（副作用管理、防复发、饮食禁忌、最新药物信息）。
+    发布时机集中在<span class="highlight">2-3月</span>，契合年初患者寻求新方案的心理窗口。
+    所有TOP文章均为<span class="highlight">原创</span>，需在流量增长时设计互动环节以防止互动率被稀释。
+  </p>
+
+  <hr />
+
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="label">标题公式</div>
+      <div class="value">颠覆常识 + 具体数字 + 利益承诺</div>
+    </div>
+    <div class="insight-card">
+      <div class="label">黄金发布时间</div>
+      <div class="value">2月 - 3月（年初心理窗口期）</div>
+    </div>
+    <div class="insight-card">
+      <div class="label">原创率</div>
+      <div class="value">100%（所有TOP文章均为原创）</div>
+    </div>
+    <div class="insight-card">
+      <div class="label">核心风险</div>
+      <div class="value">流量增长时互动率被稀释</div>
+    </div>
+  </div>
+
+  <div class="tag-list">
+    <span class="tag">颠覆认知</span>
+    <span class="tag">警惕</span>
+    <span class="tag">快停下</span>
+    <span class="tag">副作用</span>
+    <span class="tag">防复发</span>
+    <span class="tag">饮食禁忌</span>
+    <span class="tag">最新药物</span>
+    <span class="tag">4类</span>
+    <span class="tag">30%</span>
+    <span class="tag">80%的罪</span>
+    <span class="tag">颠覆性</span>
+    <span class="tag">解决方案</span>
+    <span class="tag">原创</span>
+    <span class="tag">2-3月</span>
+    <span class="tag">互动率</span>
+    <span class="tag">收藏备用</span>
+    <span class="tag">靶向药</span>
+    <span class="tag">化疗</span>
+    <span class="tag">免疫治疗</span>
+    <span class="tag">生存率</span>
+  </div>
+</div>
+
+</body>
+</html>

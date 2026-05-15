@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爆款文章关键词词云</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.1.0/dist/echarts-wordcloud.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 30px 20px;
+  }
+  h1 {
+    font-size: 28px;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, #ff6b35, #58a6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle {
+    color: #8b949e;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .legend {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+  .legend span { display: flex; align-items: center; gap: 6px; }
+  .dot {
+    width: 12px; height: 12px; border-radius: 3px;
+  }
+  #cloud {
+    width: 100%;
+    max-width: 1100px;
+    height: 650px;
+    border-radius: 12px;
+    background: #0d1117;
+  }
+  .analysis {
+    max-width: 800px;
+    margin-top: 30px;
+    padding: 24px 28px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    line-height: 1.8;
+  }
+  .analysis h3 {
+    color: #58a6ff;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  .highlight { color: #ff6b35; font-weight: bold; }
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+  }
+  .tag {
+    padding: 3px 10px;
+    border-radius: 14px;
+    font-size: 12px;
+    background: rgba(255,107,53,0.15);
+    color: #ff6b35;
+    border: 1px solid rgba(255,107,53,0.3);
+  }
+</style>
+</head>
+<body>
+
+<h1>爆款文章关键词词云</h1>
+<p class="subtitle">基于癌友指南等健康类爆款文章的标题与内容分析</p>
+
+<div class="legend">
+  <span><span class="dot" style="background:#ff6b35"></span> 核心情绪词（高频）</span>
+  <span><span class="dot" style="background:#58a6ff"></span> 痛点/模式词（中频）</span>
+  <span><span class="dot" style="background:#8b949e"></span> 辅助关键词</span>
+</div>
+
+<div id="cloud"></div>
+
+<div class="analysis">
+  <h3>智能分析：爆款文章最后一段揭示的共性规律</h3>
+  <p>
+    爆款文章的共性规律非常清晰，可归纳为<strong>标题公式、内容策略、发布时机、原创基石</strong>四个维度：
+  </p>
+  <p style="margin-top:10px;">
+    标题采用<span class="highlight">"颠覆常识 + 具体数字 + 利益承诺"</span>公式，大量使用情绪冲击词汇制造悬念。
+    内容深耕<span class="highlight">"最新研究解读"</span>和<span class="highlight">"颠覆性护理指南"</span>两个高价值领域，直击患者最迫切的痛点。
+    发布时机上集中在<span class="highlight">2-3月</span>，契合年初患者寻求新方案的心理窗口。
+    所有TOP文章均为<span class="highlight">原创</span>，且需在流量增长时设计互动环节以防止<span class="highlight">互动率被稀释</span>。
+  </p>
+  <div class="tag-list">
+    <span class="tag">颠覆认知</span>
+    <span class="tag">警惕</span>
+    <span class="tag">快停下</span>
+    <span class="tag">副作用</span>
+    <span class="tag">防复发</span>
+    <span class="tag">饮食禁忌</span>
+    <span class="tag">最新药物</span>
+    <span class="tag">4类</span>
+    <span class="tag">30%</span>
+    <span class="tag">80%的罪</span>
+    <span class="tag">颠覆性</span>
+    <span class="tag">解决方案</span>
+    <span class="tag">原创</span>
+    <span class="tag">2-3月</span>
+    <span class="tag">互动率</span>
+  </div>
+</div>
+
+<script>
+const data = [
+  // 情绪词 / 冲击力词汇（橙色权重高）
+  { name: "颠覆认知", value: 95 },
+  { name: "警惕", value: 90 },
+  { name: "快停下", value: 85 },
+  { name: "震惊", value: 80 },
+  { name: "千万别", value: 78 },
+  { name: "后悔", value: 75 },
+  { name: "真相", value: 72 },
+  { name: "曝光", value: 70 },
+  { name: "紧急提醒", value: 68 },
+  { name: "致命", value: 65 },
+  { name: "惊人", value: 62 },
+  { name: "炸裂", value: 60 },
+  { name: "刷屏", value: 58 },
+  { name: "崩溃", value: 55 },
+  { name: "必须知道", value: 52 },
+  // 数字 / 承诺类
+  { name: "4类", value: 50 },
+  { name: "30%", value: 48 },
+  { name: "80%的罪", value: 45 },
+  { name: "3倍", value: 42 },
+  { name: "100%", value: 40 },
+  { name: "5个信号", value: 38 },
+  { name: "7天", value: 35 },
+  { name: "90%的人", value: 32 },
+  // 痛点关键词
+  { name: "副作用", value: 88 },
+  { name: "防复发", value: 85 },
+  { name: "饮食禁忌", value: 82 },
+  { name: "最新药物", value: 78 },
+  { name: "治疗方案", value: 75 },
+  { name: "护理指南", value: 72 },
+  { name: "生存率", value: 68 },
+  { name: "靶向药", value: 65 },
+  { name: "免疫治疗", value: 62 },
+  { name: "化疗", value: 60 },
+  { name: "疼痛管理", value: 55 },
+  { name: "营养支持", value: 52 },
+  // 爆款模式词
+  { name: "颠覆性", value: 70 },
+  { name: "解决方案", value: 65 },
+  { name: "研究证实", value: 60 },
+  { name: "最新研究", value: 58 },
+  { name: "临床数据", value: 55 },
+  { name: "专家建议", value: 52 },
+  { name: "国际期刊", value: 48 },
+  { name: "权威解读", value: 45 },
+  // 行动号召
+  { name: "收藏", value: 70 },
+  { name: "转发", value: 68 },
+  { name: "分享", value: 65 },
+  { name: "关注", value: 60 },
+  { name: "点赞", value: 55 },
+  { name: "收藏备用", value: 50 },
+  { name: "建议收藏", value: 48 },
+  // 核心概念
+  { name: "原创", value: 85 },
+  { name: "爆款", value: 78 },
+  { name: "标题公式", value: 70 },
+  { name: "悬念", value: 65 },
+  { name: "利益承诺", value: 60 },
+  { name: "冲击力", value: 58 },
+  { name: "互动率", value: 55 },
+  { name: "用户参与度", value: 52 },
+  { name: "流量增长", value: 48 },
+  { name: "发布时间", value: 45 },
+  { name: "2月", value: 42 },
+  { name: "3月", value: 40 },
+  { name: "癌友指南", value: 75 },
+];
+
+const chart = echarts.init(document.getElementById('cloud'));
+
+const option = {
+  tooltip: {
+    show: true,
+    backgroundColor: 'rgba(22,27,34,0.95)',
+    borderColor: '#30363d',
+    textStyle: { color: '#c9d1d9', fontSize: 13 },
+    formatter: p => `<b>${p.name}</b><br/>权重: ${p.value}`,
+  },
+  series: [{
+    type: 'wordCloud',
+    shape: 'circle',
+    keepAspect: false,
+    left: 'center',
+    top: 'center',
+    width: '92%',
+    height: '92%',
+    sizeRange: [18, 100],
+    rotationRange: [-30, 30],
+    rotationStep: 15,
+    gridSize: 12,
+    drawOutOfBound: false,
+    layoutAnimation: true,
+    textStyle: {
+      fontFamily: 'Microsoft YaHei, PingFang SC, sans-serif',
+      fontWeight: 'bold',
+      color() {
+        const colors = [
+          '#ff6b35', '#ff7b4a', '#ff5722',  // orange
+          '#58a6ff', '#79c0ff', '#388bfd',  // blue
+          '#8b949e', '#9ea7b3', '#6e7681',  // grey
+        ];
+        return colors[Math.floor(Math.random() * colors.length)];
+      },
+    },
+    emphasis: {
+      focus: 'self',
+      textStyle: { shadowBlur: 12, shadowColor: 'rgba(255,255,255,0.3)' },
+    },
+    data,
+  }],
+};
+
+chart.setOption(option);
+window.addEventListener('resize', () => chart.resize());
+</script>
+</body>
+</html>
