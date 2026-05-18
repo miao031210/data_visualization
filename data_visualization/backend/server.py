@@ -347,6 +347,31 @@ async def health():
     return {"status": "ok"}
 
 
+@app.get("/api/test-llm")
+async def test_llm():
+    """Test direct LLM API connectivity."""
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {API_KEY}",
+    }
+    payload = {
+        "model": MODEL_NAME,
+        "messages": [{"role": "user", "content": "回复'OK'即可"}],
+        "max_tokens": 10,
+        "temperature": 0.0,
+    }
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            response = await client.post(API_URL, headers=headers, json=payload)
+            return {
+                "api_status": response.status_code,
+                "api_response": response.text[:500],
+                "model": MODEL_NAME,
+            }
+    except Exception as e:
+        return {"error": str(e), "model": MODEL_NAME}
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
